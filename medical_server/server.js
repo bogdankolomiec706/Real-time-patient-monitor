@@ -51,7 +51,7 @@ try {
 } 
 
 // --------------------- WebSocket setup ------------------------------
-var workSheet_server = new WebSocketServer({
+var ws_server = new WebSocketServer({
   httpServer: http_server,
   // Firefox 7 alpha has a bug that drops the connection on large fragmented messages
   fragmentOutgoingMessages: false
@@ -65,11 +65,11 @@ function broadcast(message) {
 }
 
 // --------------------- WebSocket message handling ------------------------------
-workSheet_server.on('request', function(request) {
+ws_server.on('request', function(request) {
 	
   console.log('request.origin', request.origin);
   
-  var connection = request.accept('workSheet', request.origin);
+  var connection = request.accept('ws', request.origin);
   connections.push(connection);//all clients who requested that server are stored to connections array
 
   console.log(connection.remoteAddress + " connected - Protocol Version " + connection.webSocketVersion);
